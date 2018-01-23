@@ -1,14 +1,14 @@
 {
   "name": "braingames-sethlans",
-  "version": "0.0.1",
-  "main": "dist/bin/brain-games.js",
+  "version": "0.0.2",
+  "main": "src/index.js",
   "bin": {
-  "brain-games": "dist/bin/brain-games.js"
+    "brain-games": "dist/bin/brain-games.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sethlan/project-lvl1-s192.git"
-    },
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel-node": "babel-node",
@@ -19,7 +19,8 @@
     "babel-cli": "*",
     "babel-core": "*",
     "babel-preset-env": "*",
-    "babel-preset-stage-0": "*"
+    "babel-preset-stage-0": "*",
+    "readline-sync": "*"
   },
   "files": [
     "dist"
