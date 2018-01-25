@@ -1,22 +1,26 @@
-import readlineSync from 'readline-sync';
+import { welcome,getUserName,questionEven } from './stdFunc';
 
-const getUserName = () => {
-  const name = readlineSync.question('May I have your name?');
-  console.log(`Hello, ${name}`);
-  return name;
-};
-export default getUserName;
-export const questionEven = (namePlayer) => {
-  const randomNumber = Math.floor(Math.random() * 10) + 1;
-  console.log(`Question:${randomNumber}`);
-  const answer = readlineSync.question('Your answer:');
-  const isEven = number => number % 2 === 0;
-  const trueAnswer = (isEven(randomNumber) ? 'yes' : 'no');
-  if (answer === trueAnswer) {
-    console.log('Correct!');
-    return true;
+export const brainEven = () => {
+  welcome('Answer "yes" if number even otherwise answer "no".');
+  const userName = getUserName();
+  let count = 1;
+  while (count <= 3) {
+  // for (let i = 1; i <= 3; i += 1) {
+    if (questionEven(userName)) {
+      count += 1;
+    } else {
+      break;
+    }
   }
-  console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAnswer}'.`);
-  console.log(`Let's try again, ${namePlayer}!`);
-  return false;
+  if (count === 4) {
+    console.log(`Congratulations, ${userName}!`);
+  }
+};
+export const brainGames = () => {
+  welcome();
+  getUserName();
+};
+export const brainCalc = () => {
+  welcome('What is the result of the expression?');
+  const userName = getUserName();
 };
