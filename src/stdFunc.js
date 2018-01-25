@@ -5,13 +5,13 @@ export const welcome = (ruleOfGame) => {
   if (ruleOfGame !== '') { console.log(ruleOfGame); }
 };
 export const getUserName = () => {
-  const name = readlineSync.question('May I have your name?');
+  const name = readlineSync.question('May I have your name? ');
   console.log(`Hello, ${name}`);
   return name;
 };
 export const getAnswer = () => readlineSync.question('Your answer:');
 export const question = (namePlayer, whatAsking, func, numbers) => {
-  console.log(`Question:${whatAsking}`);
+  console.log(`Question:${whatAsking(numbers)}`);
   const answer = getAnswer();
   const trueAnswer = func(numbers);
   if (answer === trueAnswer) {
@@ -22,7 +22,7 @@ export const question = (namePlayer, whatAsking, func, numbers) => {
   console.log(`Let's try again, ${namePlayer}!`);
   return false;
 };
-export const randomNumber = () => Math.floor(Math.random() * 100) + 1;
+export const randomNumber = (n1, n2) => Math.floor(Math.random() * n2) + n1;
 /*
 export const repetion = (howManyTimes, namePlayer, whatAsking, func, numbers) => {
   let count = 1;
