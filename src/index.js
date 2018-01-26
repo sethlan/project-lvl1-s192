@@ -24,27 +24,6 @@ const question = (namePlayer, whatAsking, func, numbers) => {
   return false;
 };
 const randomNumber = (n1, n2) => Math.floor(Math.random() * n2) + n1;
-const games = (
-  rOg, startAsking, asking1, asking2, asking3,
-  checking1, checking2, checking3, fr, to,
-) => {
-  welcome(rOg);
-  const userName = getUserName();
-  if (startAsking === 1) {
-    let numbers = cons(randomNumber(fr, to), randomNumber(fr, to));
-    if (question(userName, asking1, checking1, numbers)) {
-      numbers = cons(randomNumber(fr, to), randomNumber(fr, to));
-      if (question(userName, asking2, checking2, numbers)) {
-        numbers = cons(randomNumber(fr, to), randomNumber(fr, to));
-        if (question(userName, asking3, checking3, numbers)) {
-          console.log(`Congratulations, ${userName}!`);
-        }
-      }
-    }
-  }
-};
-export default games;
-/*
 export default (rulesOfGame, howManyTimes, whatAsking, howChecking, from, to) => {
   welcome(rulesOfGame);
   const userName = getUserName();
@@ -61,4 +40,3 @@ export default (rulesOfGame, howManyTimes, whatAsking, howChecking, from, to) =>
     console.log(`Congratulations, ${userName}!`);
   }
 };
-*/
