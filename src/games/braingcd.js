@@ -14,4 +14,11 @@ const gcd = (numbers) => {
   };
   return iter(car(numbers), cdr(numbers));
 };
-export default () => games('Find the greatest common divisor of given numbers.', 3, element => `${car(element)} ${cdr(element)}`, numbers => String(gcd(numbers)), 1, 100);
+export default () => games(
+  'Find the greatest common divisor of given numbers.', 1,
+  element => `${car(element)} ${cdr(element)}`,
+  element => `${car(element)} ${cdr(element)}`,
+  element => `${car(element)} ${cdr(element)}`,
+  numbers => String(gcd(numbers)), numbers => String(gcd(numbers)),
+  numbers => String(gcd(numbers)), 1, 100,
+);

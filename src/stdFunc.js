@@ -1,3 +1,4 @@
+/*
 import readlineSync from 'readline-sync';
 
 export const welcome = (ruleOfGame) => {
@@ -23,3 +24,4 @@ export const question = (namePlayer, whatAsking, func, numbers) => {
   return false;
 };
 export const randomNumber = (n1, n2) => Math.floor(Math.random() * n2) + n1;
+*/
