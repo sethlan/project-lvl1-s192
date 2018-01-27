@@ -60,7 +60,7 @@ const sort = (numb) => {
       newNum += numbStr[count];
     }
   }
-  console.log(`${numb} ${small} ${newNum}`);
+  // console.log(`${numb} ${small} ${newNum}`);
   return numbStr[small] + sort(newNum);
 };
 const balanceIt = (number) => {
