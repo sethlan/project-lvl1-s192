@@ -1,4 +1,4 @@
-import { cdr, car } from 'hexlet-pairs';
+import { cons, cdr, car } from 'hexlet-pairs';
 import games from '..';
 
 const gcd = (numbers) => {
@@ -12,10 +12,6 @@ const gcd = (numbers) => {
     const smallest = number1 >= number2 ? number2 : number1;
     return iter((biggest - smallest) / 2, smallest);
   };
-  return iter(car(numbers), cdr(numbers));
+  return cons(`${car(numbers)} ${cdr(numbers)}`, String(iter(car(numbers), cdr(numbers))));
 };
-export default () => games(
-  'Find the greatest common divisor of given numbers.', 3,
-  element => `${car(element)} ${cdr(element)}`,
-  numbers => String(gcd(numbers)), 1, 100,
-);
+export default () => games('Find the greatest common divisor of given numbers.', 3, gcd, 1, 100);

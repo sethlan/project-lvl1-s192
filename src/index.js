@@ -1,4 +1,4 @@
-import { cons } from 'hexlet-pairs';
+import { cons, car, cdr } from 'hexlet-pairs';
 import readlineSync from 'readline-sync';
 
 const welcome = (ruleOfGame) => {
@@ -11,10 +11,11 @@ const getUserName = () => {
   return name;
 };
 const getAnswer = () => readlineSync.question('Your answer:');
-const question = (namePlayer, whatAsking, func, numbers) => {
-  console.log(`Question:${whatAsking(numbers)}`);
+const askQuestion = (namePlayer, questionReceive, numbers) => {
+  const question = questionReceive(numbers);
+  console.log(`Question:${car(question)}`);
   const answer = getAnswer();
-  const trueAnswer = func(numbers);
+  const trueAnswer = cdr(question);
   if (answer === trueAnswer) {
     console.log('Correct!');
     return true;
@@ -24,13 +25,13 @@ const question = (namePlayer, whatAsking, func, numbers) => {
   return false;
 };
 const randomNumber = (n1, n2) => Math.floor(Math.random() * n2) + n1;
-export default (rulesOfGame, howManyTimes, whatAsking, howChecking, from, to) => {
+export default (rulesOfGame, howManyTimes, question, from, to) => {
   welcome(rulesOfGame);
   const userName = getUserName();
   let count = 1;
   while (count <= howManyTimes) {
     const numbers = cons(randomNumber(from, to), randomNumber(from, to));
-    if (question(userName, whatAsking, howChecking, numbers)) {
+    if (askQuestion(userName, question, numbers)) {
       count += 1;
     } else {
       break;
