@@ -1,31 +1,46 @@
-
+/*
 import { cons, car } from 'hexlet-pairs';
 import games from '..';
 
-/*
-const smallestNumb = (numbers) => {
-  const iter = (numb, acc) => {
-    if (numb <= 9) { if (numb <= acc) { return numb; } return acc; }
-    if (numb % 10 <= acc) {
-      return iter(Math.floor(numb / 10), numb % 10);
-    }
-    return iter(Math.floor(numb / 10), acc);
-  };
-  iter(numbers, 0);
+const createArray = (number) => {
+  const numberAsStr = String(number);
+  const array = [];
+  for (let i = 0; i < numberAsStr.length; i += 1) {
+    array[i] = numberAsStr[i];
+  }
+  return array;
 };
-const biggestNumb = (numbers) => {
-  const iter = (numb, acc) => {
-    if (numb <= 9) { if (numb >= acc) { return numb; } return acc; }
-    if (numb % 10 >= acc) {
-      return iter(Math.floor(numb / 10), numb % 10);
-    }
-    return iter(Math.floor(numb / 10), acc);
-  };
-  return iter(numbers, 0);
+const findBig = number => Math.max(createArray(number));
+const findSmall = number => Math.min(createArray(number));
+const isBalanced = (number) => {
+  if (number <= 9) { return true; }
+  const big = findBig(number);
+  const small = findSmall(number);
+  return (big === small || big === small + 1);
 };
-*/
-const findBig = (num) => {
-  const numb = String(num);
+const balanceIt = (number) => {
+  if (isBalanced(number)) { return number; }
+  const big = findBig(number);
+  const small = findSmall(number);
+  const array = createArray(number);
+  for (let i = 0; i < array.length; i += 1) {
+    switch (array[i]) {
+      case big:
+        array[i] -= 1;
+        break;
+      case small:
+        array[i] += 1;
+        break;
+      default:
+        break;
+    }
+  }
+  console.log(`${number} ${array} ${big} ${small}`);
+  return balanceIt(array);
+};
+const generateQuestionAndAnswer = numbers => cons(car(numbers), (balanceIt(car(numbers))).sort());
+export default () => games('Balance the given number.', generateQuestionAndAnswer);
+/*  const numb = String(num);
   let find = 0;
   for (let i = 0; i < numb.length; i += 1) {
     if (numb[i] >= numb[find]) { find = i; }
@@ -33,7 +48,8 @@ const findBig = (num) => {
   // console.log(`big ${find}`);
   return find;
 };
-const findSmall = (num) => {
+*/
+/* {
   const numb = String(num);
   let find = 0;
   for (let i = 0; i < numb.length; i += 1) {
@@ -42,14 +58,8 @@ const findSmall = (num) => {
   // console.log(`Small ${find}`);
   return find;
 };
-const isBalanced = (number) => {
-  if (number <= 9) { return true; }
-  const numbStr = String(number);
-  const big = Number(numbStr[findBig(numbStr)]);
-  const small = Number(numbStr[findSmall(numbStr)]);
-  // console.log(`${number} ${big} ${small}`);
-  return (big === small || big === small + 1);
-};
+*/
+/*
 const sort = (numb) => {
   if (numb <= 9) { return numb; }
   const numbStr = String(numb);
@@ -63,7 +73,8 @@ const sort = (numb) => {
   // console.log(`${numb} ${small} ${newNum}`);
   return numbStr[small] + sort(newNum);
 };
-const balanceIt = (number) => {
+*/
+/* const balanceIt = (number) => {
   if (isBalanced(number)) { return number; }
   const numbAsStr = String(number);
   let newNum = 0;
@@ -86,5 +97,4 @@ const balanceIt = (number) => {
   }
   return balanceIt(newNum);
 };
-const balancegame = numbers => cons(car(numbers), sort(balanceIt(car(numbers))));
-export default () => games('Balance the given number.', 3, balancegame, 0, 9999);
+*/

@@ -1,6 +1,6 @@
 import games from '..';
 
-export default () => games('', -1, 0, 0);
+export default () => games('', '');
 /*
 export const brainGames = () => {
   welcome('');

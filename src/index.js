@@ -11,11 +11,11 @@ const getUserName = () => {
   return name;
 };
 const getAnswer = () => readlineSync.question('Your answer:');
-const askQuestion = (namePlayer, questionReceive, numbers) => {
-  const question = questionReceive(numbers);
-  console.log(`Question:${car(question)}`);
+const askQuestion = (namePlayer, QuestionAndAnswer, numbers) => {
+  const qa = QuestionAndAnswer(numbers);
+  console.log(`Question:${car(qa)}`);
   const answer = getAnswer();
-  const trueAnswer = cdr(question);
+  const trueAnswer = cdr(qa);
   if (answer === trueAnswer) {
     console.log('Correct!');
     return true;
@@ -24,20 +24,21 @@ const askQuestion = (namePlayer, questionReceive, numbers) => {
   console.log(`Let's try again, ${namePlayer}!`);
   return false;
 };
-const randomNumber = (n1, n2) => Math.floor(Math.random() * n2) + n1;
-export default (rulesOfGame, howManyTimes, question, from, to) => {
+const randomNumber = () => Math.floor(Math.random() * 10000);
+export default (rulesOfGame, gamesQuestionAndAnswer) => {
+  const quantityOfRounds = 3;
   welcome(rulesOfGame);
   const userName = getUserName();
   let count = 1;
-  while (count <= howManyTimes) {
-    const numbers = cons(randomNumber(from, to), randomNumber(from, to));
-    if (askQuestion(userName, question, numbers)) {
+  while (count <= quantityOfRounds && gamesQuestionAndAnswer !== '') {
+    const numbers = cons(randomNumber(), randomNumber());
+    if (askQuestion(userName, gamesQuestionAndAnswer, numbers)) {
       count += 1;
     } else {
       break;
     }
   }
-  if (count === howManyTimes + 1) {
+  if (count === quantityOfRounds + 1) {
     console.log(`Congratulations, ${userName}!`);
   }
 };
