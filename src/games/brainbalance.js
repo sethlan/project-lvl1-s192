@@ -60,7 +60,7 @@ const sort = (numb) => {
       newNum += numbStr[count];
     }
   }
-  // console.log(`${numb} ${small} ${newNum}`);
+  console.log(`${numb} ${small} ${newNum}`);
   return numbStr[small] + sort(newNum);
 };
 const balanceIt = (number) => {
@@ -84,7 +84,7 @@ const balanceIt = (number) => {
         break;
     }
   }
-  return sort(balanceIt(newNum));
+  return balanceIt(newNum);
 };
-const balancegame = numbers => cons(car(numbers), String(balanceIt(car(numbers))));
+const balancegame = numbers => cons(car(numbers), sort(balanceIt(car(numbers))));
 export default () => games('Balance the given number.', 3, balancegame, 0, 9999);
