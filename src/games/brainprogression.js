@@ -1,16 +1,18 @@
-/*
-import { cons, car, cdr, toString } from 'hexlet-pairs';
+import { cons, car } from 'hexlet-pairs';
 import games from '..';
 
 const generateQuestionAndAnswer = (numbers) => {
-  const random = Math.floor(Math.random() * 20);
-  const createProgression = (number, step, count) => count === 0 ? null : cons(
-    number, createProgression(number + step, count - 1)
+  const printProgression = (number, step, count, whatPlaceSkip) => {
+    if (count === 0) { return ''; }
+    if (count === (11 - whatPlaceSkip)) { return `.... ${printProgression(number + step, step, count - 1, whatPlaceSkip)}`; }
+    return `${number} ${printProgression(number + step, step, count - 1, whatPlaceSkip)}`;
+  };
+  const quantityOfMembers = 10;
+  const randomStep = Math.floor(Math.random() * 100);
+  const randomPlace = Math.floor(Math.random() * 10);
+  return cons(
+    printProgression(car(numbers), randomStep, quantityOfMembers, randomPlace),
+    String(car(numbers) + (randomStep * (randomPlace - 1))),
   );
-
-
-  return cons(`${car(numbers)} - ${cdr(numbers)}`, String(car(numbers) - cdr(numbers)));
 };
-
 export default () => games('What number is missing in this progression?', generateQuestionAndAnswer);
-*/
