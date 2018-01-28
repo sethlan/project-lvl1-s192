@@ -1,21 +1,15 @@
-/*
 import { cons, car } from 'hexlet-pairs';
 import games from '..';
+import readlineSync from 'readline-sync';
 
-const createArray = (number) => {
-  const numberAsStr = String(number);
-  const array = [];
-  for (let i = 0; i < numberAsStr.length; i += 1) {
-    array[i] = numberAsStr[i];
-  }
-  return array;
-};
-const findBig = number => Math.max(createArray(number));
-const findSmall = number => Math.min(createArray(number));
+/*
+const createArray = number => String(number).split('');
+const findBig = number => String(number).reduce((a, b) => Math.max(a, b));
+const findSmall = number => Math.min(String(number));
 const isBalanced = (number) => {
   if (number <= 9) { return true; }
-  const big = findBig(number);
-  const small = findSmall(number);
+  const big = Number(findBig(number));
+  const small = Number(findSmall(number));
   return (big === small || big === small + 1);
 };
 const balanceIt = (number) => {
@@ -36,30 +30,39 @@ const balanceIt = (number) => {
     }
   }
   console.log(`${number} ${array} ${big} ${small}`);
+  readlineSync.question('May I have your name? ');
   return balanceIt(array);
 };
 const generateQuestionAndAnswer = numbers => cons(car(numbers), (balanceIt(car(numbers))).sort());
-export default () => games('Balance the given number.', generateQuestionAndAnswer);
-/*  const numb = String(num);
-  let find = 0;
-  for (let i = 0; i < numb.length; i += 1) {
-    if (numb[i] >= numb[find]) { find = i; }
-  }
-  // console.log(`big ${find}`);
-  return find;
-};
 */
-/* {
-  const numb = String(num);
+const findBig = (number) => {
+  const numberAsStr = String(number);
   let find = 0;
-  for (let i = 0; i < numb.length; i += 1) {
-    if (numb[i] <= numb[find]) { find = i; }
+  for (let i = 0; i < numberAsStr.length; i += 1) {
+    if (numberAsStr[i] >= numberAsStr[find]) { find = i; }
   }
-  // console.log(`Small ${find}`);
-  return find;
+  return Number(numberAsStr[find]);
 };
-*/
-/*
+const findSmall = (number) => {
+  const numberAsStr = String(number);
+  let find = 0;
+  for (let i = 0; i < numberAsStr.length; i += 1) {
+    if (numberAsStr[i] <= numberAsStr[find]) { find = i; }
+  }
+  return Number(numberAsStr[find]);
+};
+const otherDigit = (number) => {
+  const numberAsStr = String(number);
+  const big = findBig(number);
+  const small = findSmall(number);
+  
+}
+const isBalanced = (number) => {
+  if (number <= 9) { return true; }
+  const big = findBig(number);
+  const small = findSmall(number);
+  return (big === small || big === small + 1);
+};
 const sort = (numb) => {
   if (numb <= 9) { return numb; }
   const numbStr = String(numb);
@@ -70,31 +73,33 @@ const sort = (numb) => {
       newNum += numbStr[count];
     }
   }
-  // console.log(`${numb} ${small} ${newNum}`);
   return numbStr[small] + sort(newNum);
 };
-*/
-/* const balanceIt = (number) => {
+const balanceIt = (number) => {
   if (isBalanced(number)) { return number; }
-  const numbAsStr = String(number);
-  let newNum = 0;
+  const big = findBig(number);
+  const small = findSmall(number);
+  /*
   const big = findBig(numbAsStr);
   const small = findSmall(numbAsStr);
+  let newNum = '';
   // console.log(`${numbAsStr} ${big + 1} ${small + 1}`);
   for (let count = 0; count < numbAsStr.length; count += 1) {
     // console.log(`${newNum} ${numbAsStr} ${big + 1} ${small + 1}`);
     switch (count) {
       case big:
-        newNum += (Number(numbAsStr[big]) - 1) * (10 ** (numbAsStr.length - count - 1));
+        newNum += (Number(numbAsStr[big]) - 1);
         break;
       case small:
-        newNum += (Number(numbAsStr[small]) + 1) * (10 ** (numbAsStr.length - count - 1));
+        newNum += (Number(numbAsStr[small]) + 1);
         break;
       default:
-        newNum += (Number(numbAsStr[count])) * (10 ** (numbAsStr.length - count - 1));
+        newNum += (Number(numbAsStr[count]));
         break;
     }
   }
-  return balanceIt(newNum);
+  */
+  return balanceIt(`${big - 1}${small + 1}`);
 };
-*/
+const generateQuestionAndAnswer = numbers => cons(car(numbers), sort(balanceIt(car(numbers))));
+export default () => games('Balance the given number.', generateQuestionAndAnswer);
