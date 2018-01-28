@@ -1,18 +1,22 @@
 import { cons, car } from 'hexlet-pairs';
 import games from '..';
 
+const generateMember = (firstMember, diff, whatPlace) => firstMember + (diff * whatPlace);
 const generateQuestionAndAnswer = (numbers) => {
-  const printProgression = (number, step, count, whatPlaceSkip) => {
-    if (count === 0) { return ''; }
-    if (count === (11 - whatPlaceSkip)) { return `.... ${printProgression(number + step, step, count - 1, whatPlaceSkip)}`; }
-    return `${number} ${printProgression(number + step, step, count - 1, whatPlaceSkip)}`;
+  const generateProgressionWithMiss = (firstMember, diff, whatPlaceSkip, quantity) => {
+    const iter = (step) => {
+      if (step === quantity) { return generateMember(firstMember, diff, step); }
+      if (step === whatPlaceSkip) { return `... ${iter(step + 1)}`; }
+      return `${generateMember(firstMember, diff, step)} ${iter(step + 1)}`;
+    };
+    return iter(1);
   };
   const quantityOfMembers = 10;
   const randomStep = Math.floor(Math.random() * 100);
-  const randomPlace = Math.floor(Math.random() * 10);
+  const randomPlace = 1 + Math.floor(Math.random() * quantityOfMembers);
   return cons(
-    printProgression(car(numbers), randomStep, quantityOfMembers, randomPlace),
-    String(car(numbers) + (randomStep * (randomPlace - 1))),
+    generateProgressionWithMiss(car(numbers), randomStep, randomPlace, quantityOfMembers),
+    String(generateMember(car(numbers), randomStep, randomPlace)),
   );
 };
 export default () => games('What number is missing in this progression?', generateQuestionAndAnswer);
