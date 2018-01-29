@@ -1,9 +1,3 @@
-import games from '..';
+import { firstGames } from '..';
 
-export default () => games('', '');
-/*
-export const brainGames = () => {
-  welcome('');
-  getUserName();
-};
-*/
+export default () => firstGames();

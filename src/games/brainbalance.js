@@ -1,65 +1,33 @@
-import { cons, car } from 'hexlet-pairs';
-import readlineSync from 'readline-sync';
+import { cons } from 'hexlet-pairs';
 import games from '..';
 
-const createArray = number => String(number).split('');
-const createNumber = (array) => {
-  let numb = '';
-  for (let i = 0; i < array.length; i += 1) {
-    numb += array[i];
+const findBig = array => array.reduce((acc, element) => (acc > element ? acc : element));
+const findSmall = array => array.reduce((acc, element) => (acc < element ? acc : element));
+const randomArray = () => {
+  const randomLength = Math.floor(Math.random() * 4);
+  const array = [];
+  for (let i = 0; i <= randomLength; i += 1) {
+    array[i] = Math.floor(Math.random() * 8) + 1;
   }
-  return Number(numb);
+  return array;
 };
-const findBig = number => (number <= 9 ? number : Math.max(
-  number % 10,
-  findBig(Math.floor(number / 10)),
-));
-const findIndexOfBig = (array) => {
-  let find = 0;
-  for (let i = 0; i < array.length; i += 1) {
-    if (array[i] >= array[find]) { find = i; }
-  }
-  return find;
-};
-const findIndexOfSmall = (array) => {
-  let find = 0;
-  for (let i = 0; i < array.length; i += 1) {
-    if (array[i] <= array[find]) { find = i; }
-  }
-  return find;
-};
-
-const findSmall = number => (number <= 9 ? number : Math.min(
-  number % 10,
-  findSmall(Math.floor(number / 10)),
-));
-const isBalanced = (number) => {
-  if (number <= 9) { return true; }
-  const big = findBig(number);
-  const small = findSmall(number);
-  // console.log(`${big} ${small} `);
+const isBalanced = (array) => {
+  if (array.length === 1) { return true; }
+  const big = findBig(array);
+  const small = findSmall(array);
   return (big === small || big === small + 1);
 };
-const balanceIt = (number) => {
-  // console.log(`${number}`);
-  // readlineSync.question('Begin ');
-  if (isBalanced(number)) { return number; }
-  // console.log(`${number}`);
-  // readlineSync.question('May I have your name? ');
-  const big = findBig(number);
-  const small = findSmall(number);
-  const numberAsArray = createArray(number);
-  numberAsArray[findIndexOfBig(numberAsArray)] = Number(numberAsArray[findIndexOfBig(numberAsArray)]) - 1;
-  numberAsArray[findIndexOfSmall(numberAsArray)] = Number(numberAsArray[findIndexOfSmall(numberAsArray)]) + 1;
-  // console.log(`${number} ${numberAsArray} ${big} ${small} ${findIndexOfBig(numberAsArray)} ${findIndexOfSmall(numberAsArray)}`);
-  // readlineSync.question(' ');
-  return balanceIt(createNumber(numberAsArray));
+const balanceIt = (array) => {
+  if (isBalanced(array)) { return array; }
+  const big = findBig(array);
+  const small = findSmall(array);
+  const newArray = array;
+  newArray[array.indexOf(big)] -= 1;
+  newArray[array.indexOf(small)] += 1;
+  return balanceIt(array);
 };
-const sort = (number) => {
-  if (number <= 9) { return number; }
-  const numberAsArray = createArray(number);
-  numberAsArray.sort();
-  return String(createNumber(numberAsArray));
+const generateQuestionAndAnswer = () => {
+  const array = randomArray();
+  return cons(array.join(''), balanceIt(array).sort().join(''));
 };
-const generateQuestionAndAnswer = numbers => cons(car(numbers), sort(balanceIt(car(numbers))));
 export default () => games('Balance the given number.', generateQuestionAndAnswer);

@@ -1,4 +1,4 @@
-import { cons, car, cdr } from 'hexlet-pairs';
+import { car, cdr } from 'hexlet-pairs';
 import readlineSync from 'readline-sync';
 
 const welcome = (ruleOfGame) => {
@@ -11,11 +11,11 @@ const getUserName = () => {
   return name;
 };
 const getAnswer = () => readlineSync.question('Your answer:');
-const askQuestion = (namePlayer, QuestionAndAnswer, numbers) => {
-  const qa = QuestionAndAnswer(numbers);
-  console.log(`Question:${car(qa)}`);
+const askQuestion = (namePlayer, QuestionAndAnswer) => {
+  const process = QuestionAndAnswer();
+  console.log(`Question:${car(process)}`);
   const answer = getAnswer();
-  const trueAnswer = cdr(qa);
+  const trueAnswer = cdr(process);
   if (answer === trueAnswer) {
     console.log('Correct!');
     return true;
@@ -24,15 +24,17 @@ const askQuestion = (namePlayer, QuestionAndAnswer, numbers) => {
   console.log(`Let's try again, ${namePlayer}!`);
   return false;
 };
-const randomNumber = () => Math.floor(Math.random() * 10000);
+export const firstGames = () => {
+  welcome();
+  getUserName();
+};
 export default (rulesOfGame, gamesQuestionAndAnswer) => {
   const quantityOfRounds = 3;
   welcome(rulesOfGame);
   const userName = getUserName();
   let count = 1;
-  while (count <= quantityOfRounds && gamesQuestionAndAnswer !== '') {
-    const numbers = cons(randomNumber(), randomNumber());
-    if (askQuestion(userName, gamesQuestionAndAnswer, numbers)) {
+  while (count <= quantityOfRounds) {
+    if (askQuestion(userName, gamesQuestionAndAnswer)) {
       count += 1;
     } else {
       break;
